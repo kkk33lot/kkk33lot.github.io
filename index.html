@@ -12,86 +12,161 @@
     }
 
     body {
-      background-color: #0b0c10;
+      background-color: #0d0e12;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
       color: #ffffff;
+      padding: 10px;
     }
 
-    /* 手机外框 */
-    .music-phone-frame {
+    /* 播放器卡片整体 */
+    .player-card {
       width: 340px;
-      background: #121318;
-      border-radius: 36px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-      padding: 16px;
+      background: #141519;
+      border-radius: 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85);
+      padding: 18px;
       position: relative;
     }
 
-    /* 顶部状态栏 */
-    .music-phone-status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 14px;
-      padding: 0 4px;
+    /* 顶部状态与歌曲信息 */
+    .song-header {
+      margin-bottom: 12px;
+      text-align: center;
     }
 
-    .music-dynamic-island {
-      width: 80px;
-      height: 20px;
-      background: #000000;
-      border-radius: 20px;
+    .song-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #f0f0f5;
+      letter-spacing: 0.5px;
     }
 
-    /* 黑胶唱片区域 */
-    .music-turntable-box {
-      position: relative;
-      width: 240px;
-      height: 240px;
+    .song-artist {
+      font-size: 13px;
+      color: #8e8e99;
+      margin-top: 3px;
+    }
+
+    /* ====== 图二同款：精美黑胶唱机台座 ====== */
+    .turntable-deck {
+      width: 280px;
+      height: 280px;
       margin: 0 auto 16px;
-      background: #181920;
-      border-radius: 20px;
-      box-shadow: inset 0 0 15px #000000, 0 8px 20px rgba(0, 0, 0, 0.6);
+      background: linear-gradient(145deg, #23242a, #16171b);
+      border-radius: 24px;
+      box-shadow: 
+        inset 1px 1px 2px rgba(255, 255, 255, 0.1),
+        inset -2px -2px 6px rgba(0, 0, 0, 0.8),
+        0 12px 25px rgba(0, 0, 0, 0.7);
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 1px solid #2a2b32;
     }
 
-    .music-tonearm {
+    /* 左上角品牌/标志细节 */
+    .deck-logo {
       position: absolute;
-      top: 10px;
-      right: 20px;
-      width: 45px;
-      height: 75px;
-      border-right: 3px solid #999999;
-      border-top: 3px solid #999999;
-      border-top-right-radius: 12px;
-      transform: rotate(15deg);
-      transform-origin: top right;
-      z-index: 5;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .music-tonearm.playing {
-      transform: rotate(27deg);
-    }
-
-    .music-vinyl-record {
-      width: 200px;
-      height: 200px;
+      top: 14px;
+      left: 16px;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #555763;
       border-radius: 50%;
-      background: radial-gradient(circle, #2d2e36 0%, #141519 60%, #070709 100%);
+      opacity: 0.6;
+    }
+
+    /* 右下角推子细节 */
+    .deck-slider {
+      position: absolute;
+      bottom: 16px;
+      right: 18px;
+      width: 12px;
+      height: 28px;
+      background: #0d0e11;
+      border-radius: 3px;
+      box-shadow: inset 0 0 3px #000;
+      display: flex;
+      justify-content: center;
+    }
+    .deck-slider-knob {
+      width: 16px;
+      height: 6px;
+      background: #4a4c58;
+      border-radius: 1px;
+      position: absolute;
+      bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+
+    /* 左下角指示灯 */
+    .deck-power-led {
+      position: absolute;
+      bottom: 20px;
+      left: 18px;
+      width: 8px;
+      height: 8px;
+      background: #333540;
+      border-radius: 50%;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .deck-power-led.active {
+      background: #30d158;
+      box-shadow: 0 0 8px #30d158;
+    }
+
+    /* 唱片托盘凹槽 */
+    .platter-dish {
+      width: 236px;
+      height: 236px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #0e0f12 0%, #1a1b21 70%, #0a0b0d 100%);
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9), 0 0 2px rgba(255,255,255,0.05);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid #22232b;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+
+    /* 黑胶唱片本体（带有逼真唱片纹理） */
+    .vinyl-record {
+      width: 216px;
+      height: 216px;
+      border-radius: 50%;
+      background: 
+        repeating-radial-gradient(
+          circle at center,
+          #18191e 0px,
+          #111216 2px,
+          #22242c 3px,
+          #111216 4px
+        );
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), inset 0 0 1px rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* 光泽反射效果 */
+    .vinyl-record::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.12) 0%,
+        rgba(255,255,255,0) 40%,
+        rgba(255,255,255,0) 60%,
+        rgba(255,255,255,0.08) 100%
+      );
+      pointer-events: none;
     }
 
     @keyframes spinVinyl {
@@ -99,248 +174,223 @@
       to { transform: rotate(360deg); }
     }
 
-    .music-vinyl-record.spinning {
-      animation: spinVinyl 14s linear infinite;
+    .vinyl-record.spinning {
+      animation: spinVinyl 12s linear infinite;
     }
 
-    .music-record-cover {
-      width: 100px;
-      height: 100px;
+    /* 保持原头像不变（中间贴纸） */
+    .record-cover {
+      width: 92px;
+      height: 92px;
       border-radius: 50%;
-      border: 2px solid #000000;
+      border: 3px solid #0d0e11;
       object-fit: cover;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+      z-index: 2;
     }
 
-    /* 标题与红心 */
-    .music-song-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-      padding: 0 4px;
+    /* 精美金属唱针组 */
+    .tonearm-base {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      background: radial-gradient(circle, #4a4c58 0%, #1e1f25 100%);
+      border-radius: 50%;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.6);
+      z-index: 10;
     }
 
-    .music-song-title {
-      font-size: 20px;
-      font-weight: 700;
+    .tonearm-arm {
+      position: absolute;
+      top: 16px;
+      right: 28px;
+      width: 6px;
+      height: 105px;
+      background: linear-gradient(to right, #8a8d9b, #525461, #a1a4b3);
+      border-radius: 3px;
+      transform-origin: 3px 3px;
+      transform: rotate(-32deg);
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -2px 4px 8px rgba(0,0,0,0.5);
+      z-index: 9;
     }
 
-    .music-heart-tag {
-      color: #ff3b30;
-      font-size: 12px;
-      font-weight: 600;
+    /* 唱头弯角与唱头 */
+    .tonearm-arm::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: -8px;
+      width: 14px;
+      height: 22px;
+      background: #111216;
+      border: 1px solid #444652;
+      border-radius: 2px;
+      transform: rotate(20deg);
     }
 
-    /* 歌手名与标签 */
-    .music-artist-line {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      padding: 0 4px;
-    }
-
-    .music-artist-name {
-      font-size: 13px;
-      color: #8e8e93;
-      margin-right: 8px;
-    }
-
-    .music-badge-group {
-      display: flex;
-      gap: 4px;
-    }
-
-    .music-badge {
-      border: 1px solid #3a3b45;
-      border-radius: 4px;
-      padding: 1px 4px;
-      font-size: 10px;
-      color: #7c7c88;
+    .tonearm-arm.playing {
+      transform: rotate(6deg);
     }
 
     /* 歌词区域 */
-    .music-lyrics-box {
-      margin: 8px 0 14px;
-      padding: 0 4px;
-      height: 24px;
+    .lyrics-box {
+      height: 26px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
       overflow: hidden;
     }
 
-    .music-lyric-line {
+    .lyric-line {
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.5px;
       background: linear-gradient(
         to right,
         #ffffff var(--lyric-progress, 0%),
-        #666666 var(--lyric-progress, 0%)
+        #555866 var(--lyric-progress, 0%)
       );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: inline-block;
       transition: opacity 0.3s ease;
     }
 
-    /* 功能图标栏 */
-    .music-icon-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #8e8e93;
-      font-size: 12px;
+    /* 可拖拽滑动进度条 */
+    .progress-container {
       margin-bottom: 14px;
-      padding: 0 6px;
-    }
-
-    /* 进度条 */
-    .music-progress-container {
-      padding: 0 4px;
-      margin-bottom: 12px;
       cursor: pointer;
+      padding: 4px 0;
     }
 
-    .music-progress-bar {
+    .progress-bar {
       width: 100%;
-      height: 3px;
-      background: #2a2b34;
+      height: 4px;
+      background: #252730;
       position: relative;
-      margin-bottom: 6px;
       border-radius: 2px;
     }
 
-    .music-progress-current {
+    .progress-current {
       width: 0%;
       height: 100%;
-      background: #ffffff;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
       border-radius: 2px;
     }
 
-    .music-progress-dot {
+    .progress-dot {
       position: absolute;
-      top: -3px;
+      top: -4px;
       left: 0%;
-      width: 9px;
-      height: 9px;
+      width: 12px;
+      height: 12px;
       background: #ffffff;
       border-radius: 50%;
       transform: translateX(-50%);
+      box-shadow: 0 0 6px rgba(0,0,0,0.5);
     }
 
-    .music-time-stamps {
+    .time-stamps {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
-      color: #666666;
+      color: #6b6d7c;
+      margin-top: 6px;
     }
 
-    /* 控制按钮栏 */
-    .music-controls-wrapper {
+    /* 底部按钮 */
+    .controls-wrapper {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
-      padding: 0 6px;
     }
 
-    .music-ctrl-icon {
-      font-size: 18px;
-      color: #a0a5b5;
+    .ctrl-btn {
+      font-size: 20px;
+      color: #7b7d8c;
       cursor: pointer;
       user-select: none;
+      transition: color 0.2s;
     }
 
-    .music-play-btn-box {
-      width: 48px;
-      height: 48px;
-      border: 2px solid rgba(255, 255, 255, 0.9);
+    .ctrl-btn:hover {
+      color: #ffffff;
+    }
+
+    .play-btn {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #2b2c36, #1c1d24);
+      border: 1px solid #3d3f4d;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      font-size: 18px;
+      font-size: 20px;
       cursor: pointer;
       user-select: none;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
       padding-left: 3px;
+      transition: transform 0.1s, border-color 0.2s;
     }
 
-    .music-phone-home-indicator {
-      width: 120px;
-      height: 4px;
-      background: #ffffff;
-      border-radius: 2px;
-      margin: 14px auto 0;
-      opacity: 0.35;
+    .play-btn:active {
+      transform: scale(0.95);
     }
   </style>
 </head>
 <body>
 
-  <div class="music-phone-frame">
-    <div class="music-phone-status-bar">
-      <span>08:30</span>
-      <div class="music-dynamic-island"></div>
-      <span>5G 🔋</span>
+  <div class="player-card">
+    <div class="song-header">
+      <div class="song-title">快乐不知时日</div>
+      <div class="song-artist">Dear Jane</div>
     </div>
 
-    <div class="music-player-body">
-      <div class="music-turntable-box">
-        <div class="music-tonearm" id="tonearm"></div>
-        <div class="music-vinyl-record" id="vinyl">
-          <img class="music-record-cover" src="https://i.imgur.com/xYul2TG.jpeg" alt="Album Cover">
+    <div class="turntable-deck">
+      <div class="deck-logo"></div>
+      <div class="deck-power-led" id="powerLed"></div>
+      
+      <div class="platter-dish">
+        <div class="vinyl-record" id="vinyl">
+          <img class="record-cover" src="https://i.imgur.com/xYul2TG.jpeg" alt="Dear Jane Album Cover">
         </div>
       </div>
 
-      <div class="music-song-header">
-        <h3 class="music-song-title">快乐不知时日</h3>
-        <span class="music-heart-tag">❤️ 500w+</span>
-      </div>
+      <div class="tonearm-base"></div>
+      <div class="tonearm-arm" id="tonearm"></div>
 
-      <div class="music-artist-line">
-        <span class="music-artist-name">Dear Jane</span>
-        <div class="music-badge-group">
-          <span class="music-badge">5k人</span>
-          <span class="music-badge">VIP</span>
-          <span class="music-badge">HQ</span>
-        </div>
-      </div>
-
-      <div class="music-lyrics-box">
-        <span class="music-lyric-line" id="lyricLine" style="--lyric-progress: 40%;">记住每分钟</span>
-      </div>
-
-      <div class="music-icon-bar">
-        <span>🎤 99+</span>
-        <span>🎧 off</span>
-        <span>📥</span>
-        <span>💬 1w+</span>
-        <span>⋮</span>
-      </div>
-
-      <div class="music-progress-container" id="progressArea">
-        <div class="music-progress-bar">
-          <div class="music-progress-current" id="progressCurrent"></div>
-          <div class="music-progress-dot" id="progressDot"></div>
-        </div>
-        <div class="music-time-stamps">
-          <span id="currentTime">00:00</span>
-          <span id="durationTime">00:00</span>
-        </div>
-      </div>
-
-      <div class="music-controls-wrapper">
-        <span class="music-ctrl-icon">🔁</span>
-        <span class="music-ctrl-icon">⏮</span>
-        
-        <div class="music-play-btn-box" id="playBtn">▶</div>
-        
-        <span class="music-ctrl-icon">⏭</span>
-        <span class="music-ctrl-icon">☰</span>
+      <div class="deck-slider">
+        <div class="deck-slider-knob"></div>
       </div>
     </div>
 
-    <div class="music-phone-home-indicator"></div>
+    <div class="lyrics-box">
+      <span class="lyric-line" id="lyricLine" style="--lyric-progress: 40%;">记住每分钟</span>
+    </div>
+
+    <div class="progress-container" id="progressArea">
+      <div class="progress-bar">
+        <div class="progress-current" id="progressCurrent"></div>
+        <div class="progress-dot" id="progressDot"></div>
+      </div>
+      <div class="time-stamps">
+        <span id="currentTime">00:00</span>
+        <span id="durationTime">00:00</span>
+      </div>
+    </div>
+
+    <div class="controls-wrapper">
+      <span class="ctrl-btn">🔁</span>
+      <span class="ctrl-btn">⏮</span>
+      <div class="play-btn" id="playBtn">▶</div>
+      <span class="ctrl-btn">⏭</span>
+      <span class="ctrl-btn">☰</span>
+    </div>
   </div>
 
   <audio id="audioPlayer" src="https://ia601601.us.archive.org/21/items/lyhsun/time-flies_%28cut%29.mp3" preload="metadata"></audio>
@@ -350,6 +400,7 @@
     const playBtn = document.getElementById('playBtn');
     const vinyl = document.getElementById('vinyl');
     const tonearm = document.getElementById('tonearm');
+    const powerLed = document.getElementById('powerLed');
     const progressCurrent = document.getElementById('progressCurrent');
     const progressDot = document.getElementById('progressDot');
     const currentTimeEl = document.getElementById('currentTime');
@@ -380,12 +431,14 @@
         playBtn.style.paddingLeft = '0px';
         vinyl.classList.add('spinning');
         tonearm.classList.add('playing');
+        powerLed.classList.add('active');
       } else {
         audio.pause();
         playBtn.textContent = '▶';
         playBtn.style.paddingLeft = '3px';
         vinyl.classList.remove('spinning');
         tonearm.classList.remove('playing');
+        powerLed.classList.remove('active');
       }
     });
 
@@ -393,7 +446,6 @@
       if (!audio.duration) return;
 
       const currTime = audio.currentTime;
-
       const pct = (currTime / audio.duration) * 100;
       progressCurrent.style.width = pct + '%';
       progressDot.style.left = pct + '%';
@@ -401,14 +453,12 @@
       durationTimeEl.textContent = formatTime(audio.duration);
 
       let matchIndex = lyricsData.findIndex(item => currTime >= item.start && currTime < item.end);
-
       if (matchIndex === -1 && currTime >= lyricsData[lyricsData.length - 1].end) {
         matchIndex = lyricsData.length - 1;
       }
 
       if (matchIndex !== -1) {
         const item = lyricsData[matchIndex];
-
         if (currentLyricIndex !== matchIndex) {
           currentLyricIndex = matchIndex;
           lyricLine.style.opacity = '0';
@@ -429,7 +479,6 @@
             lineProgress = 40 + (lineProgress * 0.6);
           }
         }
-
         lyricLine.style.setProperty('--lyric-progress', `${lineProgress}%`);
       }
     });
@@ -443,9 +492,9 @@
       playBtn.style.paddingLeft = '3px';
       vinyl.classList.remove('spinning');
       tonearm.classList.remove('playing');
+      powerLed.classList.remove('active');
       progressCurrent.style.width = '0%';
       progressDot.style.left = '0%';
-      
       currentLyricIndex = 0;
       lyricLine.textContent = lyricsData[0].text;
       lyricLine.style.setProperty('--lyric-progress', '40%');
@@ -455,8 +504,7 @@
       if (!audio.duration) return;
       const rect = progressArea.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
-      const width = rect.width;
-      audio.currentTime = (clickX / width) * audio.duration;
+      audio.currentTime = (clickX / rect.width) * audio.duration;
     });
   </script>
 </body>
