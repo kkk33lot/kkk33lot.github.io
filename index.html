@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>快乐不知时日 - Dear Jane</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
+  
   <style>
     * {
       box-sizing: border-box;
@@ -277,11 +279,13 @@
       margin-bottom: 4px;
     }
 
+    /* 歌曲标题：更换为文艺手写体 "霞鹜文楷" */
     .song-title {
-      font-size: 20px;
+      font-family: "LXGW WenKai", "PingFang SC", sans-serif;
+      font-size: 22px;
       font-weight: 700;
       color: #ffffff;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.5px;
     }
 
     .like-badge {
@@ -313,9 +317,9 @@
       border-radius: 4px;
     }
 
-    /* 歌词动态渐变高光 */
+    /* 歌词区域：更换为文艺手写体 "霞鹜文楷" */
     .lyrics-container {
-      height: 28px;
+      height: 32px;
       display: flex;
       align-items: center;
       margin-bottom: 12px;
@@ -323,9 +327,10 @@
     }
 
     .lyric-text {
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
+      font-family: "LXGW WenKai", "PingFang SC", sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 1px;
       background: linear-gradient(
         to right,
         #ffffff var(--lyric-progress, 0%),
@@ -370,7 +375,7 @@
     }
 
     .progress-fill {
-      width: 24.78%; /* (63.44 / 256) * 100% */
+      width: 24.78%;
       height: 100%;
       background: #ffffff;
       border-radius: 2px;
@@ -581,7 +586,6 @@
 
     playBtn.addEventListener('click', () => {
       if (audio.paused) {
-        // 如果当前播放时间不在区间内，定位到起始点
         if (audio.currentTime < START_TIME || audio.currentTime >= END_TIME) {
           audio.currentTime = START_TIME;
         }
@@ -604,7 +608,6 @@
     audio.addEventListener('timeupdate', () => {
       const curr = audio.currentTime;
 
-      // 如果播放到了设定的结束点 01:12.17，自动停止并复位
       if (curr >= END_TIME) {
         stopPlayback();
         return;
@@ -616,7 +619,7 @@
       progressDot.style.left = pct + '%';
       currentTimeEl.textContent = formatTime(curr);
 
-      // 匹配歌词与卡拉OK高光变色
+      // 匹配歌词与高光变色
       let matchIndex = lyricsData.findIndex(item => curr >= item.start && curr < item.end);
 
       if (matchIndex !== -1) {
@@ -637,7 +640,6 @@
       }
     });
 
-    // 初始化定位到起点
     audio.addEventListener('loadeddata', () => {
       audio.currentTime = START_TIME;
     });
