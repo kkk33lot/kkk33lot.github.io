@@ -89,7 +89,7 @@
       border-radius: 1px;
     }
 
-    /* ====== 精美黑胶唱机台座（保持上一版样式） ====== */
+    /* ====== 精美黑胶唱机台座 ====== */
     .turntable-deck {
       width: 290px;
       height: 290px;
@@ -313,7 +313,7 @@
       border-radius: 4px;
     }
 
-    /* 歌词动态显示 */
+    /* 歌词动态渐变高光 */
     .lyrics-container {
       height: 28px;
       display: flex;
@@ -336,7 +336,7 @@
       transition: opacity 0.3s ease;
     }
 
-    /* 快捷小图标栏 */
+    /* 快捷功能图标 */
     .quick-tools {
       display: flex;
       justify-content: space-between;
@@ -354,7 +354,7 @@
       cursor: pointer;
     }
 
-    /* 可拖拽滑动进度条 */
+    /* 进度条 */
     .progress-section {
       margin-bottom: 16px;
       cursor: pointer;
@@ -370,7 +370,7 @@
     }
 
     .progress-fill {
-      width: 0%;
+      width: 24.78%; /* (63.44 / 256) * 100% */
       height: 100%;
       background: #ffffff;
       border-radius: 2px;
@@ -379,7 +379,7 @@
     .progress-knob {
       position: absolute;
       top: -4.5px;
-      left: 0%;
+      left: 24.78%;
       width: 12px;
       height: 12px;
       background: #ffffff;
@@ -436,7 +436,7 @@
       transform: scale(0.94);
     }
 
-    /* iPhone 底部指示条 Home Bar */
+    /* iPhone 底部 Home Bar */
     .home-indicator {
       width: 134px;
       height: 5px;
@@ -491,7 +491,7 @@
       </div>
 
       <div class="lyrics-container">
-        <span class="lyric-text" id="lyricLine" style="--lyric-progress: 40%;">记住每分钟</span>
+        <span class="lyric-text" id="lyricLine" style="--lyric-progress: 0%;">明天需要什么</span>
       </div>
     </div>
 
@@ -509,8 +509,8 @@
         <div class="progress-knob" id="progressDot"></div>
       </div>
       <div class="time-display">
-        <span id="currentTime">00:00</span>
-        <span id="durationTime">00:00</span>
+        <span id="currentTime">01:03</span>
+        <span id="durationTime">04:16</span>
       </div>
     </div>
 
@@ -525,7 +525,7 @@
     <div class="home-indicator"></div>
   </div>
 
-  <audio id="audioPlayer" src="https://ia601601.us.archive.org/21/items/lyhsun/time-flies_%28cut%29.mp3" preload="metadata"></audio>
+  <audio id="audioPlayer" src="https://ia601601.us.archive.org/21/items/lyhsun/Time%20Flies.mp3" preload="metadata"></audio>
 
   <script>
     const audio = document.getElementById('audioPlayer');
@@ -536,28 +536,55 @@
     const progressCurrent = document.getElementById('progressCurrent');
     const progressDot = document.getElementById('progressDot');
     const currentTimeEl = document.getElementById('currentTime');
-    const durationTimeEl = document.getElementById('durationTime');
-    const progressArea = document.getElementById('progressArea');
     const lyricLine = document.getElementById('lyricLine');
 
+    // 时间设置（秒数）
+    const START_TIME = 63.44;   // 01:03.44
+    const END_TIME = 72.17;     // 01:12.17
+    const TOTAL_DURATION = 256; // 04:16 (256s)
+
+    // 精确 Time Code 歌词配置
     const lyricsData = [
-      { start: 0, end: 3.5, text: "记住每分钟", initProgress: 40 },
-      { start: 3.5, end: 7.0, text: "明天需要什么", initProgress: 0 },
-      { start: 7.0, end: 10.5, text: "有着你便可", initProgress: 0 },
-      { start: 10.5, end: 15.0, text: "快乐不知时日过", initProgress: 0 }
+      { start: 63.44, end: 66.49, text: "明天需要什么" },
+      { start: 66.49, end: 68.75, text: "有着你便可" },
+      { start: 68.75, end: 72.17, text: "快乐不知时日过" }
     ];
 
     let currentLyricIndex = -1;
 
     function formatTime(seconds) {
-      if (isNaN(seconds)) return "00:00";
       const m = Math.floor(seconds / 60);
       const s = Math.floor(seconds % 60);
       return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
     }
 
+    function stopPlayback() {
+      audio.pause();
+      audio.currentTime = START_TIME;
+      playBtn.textContent = '▶';
+      playBtn.style.paddingLeft = '3px';
+      vinyl.classList.remove('spinning');
+      tonearm.classList.remove('playing');
+      powerLed.classList.remove('active');
+
+      // 复位进度条到 01:03.44
+      const startPct = (START_TIME / TOTAL_DURATION) * 100;
+      progressCurrent.style.width = startPct + '%';
+      progressDot.style.left = startPct + '%';
+      currentTimeEl.textContent = "01:03";
+
+      // 复位歌词
+      currentLyricIndex = 0;
+      lyricLine.textContent = lyricsData[0].text;
+      lyricLine.style.setProperty('--lyric-progress', '0%');
+    }
+
     playBtn.addEventListener('click', () => {
       if (audio.paused) {
+        // 如果当前播放时间不在区间内，定位到起始点
+        if (audio.currentTime < START_TIME || audio.currentTime >= END_TIME) {
+          audio.currentTime = START_TIME;
+        }
         audio.play();
         playBtn.textContent = '❚❚';
         playBtn.style.paddingLeft = '0px';
@@ -575,19 +602,22 @@
     });
 
     audio.addEventListener('timeupdate', () => {
-      if (!audio.duration) return;
+      const curr = audio.currentTime;
 
-      const currTime = audio.currentTime;
-      const pct = (currTime / audio.duration) * 100;
+      // 如果播放到了设定的结束点 01:12.17，自动停止并复位
+      if (curr >= END_TIME) {
+        stopPlayback();
+        return;
+      }
+
+      // 计算 04:16 全局进度条
+      const pct = (curr / TOTAL_DURATION) * 100;
       progressCurrent.style.width = pct + '%';
       progressDot.style.left = pct + '%';
-      currentTimeEl.textContent = formatTime(currTime);
-      durationTimeEl.textContent = formatTime(audio.duration);
+      currentTimeEl.textContent = formatTime(curr);
 
-      let matchIndex = lyricsData.findIndex(item => currTime >= item.start && currTime < item.end);
-      if (matchIndex === -1 && currTime >= lyricsData[lyricsData.length - 1].end) {
-        matchIndex = lyricsData.length - 1;
-      }
+      // 匹配歌词与卡拉OK高光变色
+      let matchIndex = lyricsData.findIndex(item => curr >= item.start && curr < item.end);
 
       if (matchIndex !== -1) {
         const item = lyricsData[matchIndex];
@@ -600,43 +630,16 @@
           }, 150);
         }
 
-        let lineProgress = 0;
-        if (matchIndex === 0 && currTime === 0) {
-          lineProgress = item.initProgress;
-        } else {
-          const lineDuration = item.end - item.start;
-          const elapsed = currTime - item.start;
-          lineProgress = Math.min(100, Math.max(0, (elapsed / lineDuration) * 100));
-          if (matchIndex === 0) {
-            lineProgress = 40 + (lineProgress * 0.6);
-          }
-        }
+        const lineDuration = item.end - item.start;
+        const elapsed = curr - item.start;
+        const lineProgress = Math.min(100, Math.max(0, (elapsed / lineDuration) * 100));
         lyricLine.style.setProperty('--lyric-progress', `${lineProgress}%`);
       }
     });
 
-    audio.addEventListener('loadedmetadata', () => {
-      durationTimeEl.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener('ended', () => {
-      playBtn.textContent = '▶';
-      playBtn.style.paddingLeft = '3px';
-      vinyl.classList.remove('spinning');
-      tonearm.classList.remove('playing');
-      powerLed.classList.remove('active');
-      progressCurrent.style.width = '0%';
-      progressDot.style.left = '0%';
-      currentLyricIndex = 0;
-      lyricLine.textContent = lyricsData[0].text;
-      lyricLine.style.setProperty('--lyric-progress', '40%');
-    });
-
-    progressArea.addEventListener('click', (e) => {
-      if (!audio.duration) return;
-      const rect = progressArea.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      audio.currentTime = (clickX / rect.width) * audio.duration;
+    // 初始化定位到起点
+    audio.addEventListener('loadeddata', () => {
+      audio.currentTime = START_TIME;
     });
   </script>
 </body>
