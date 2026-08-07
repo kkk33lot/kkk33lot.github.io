@@ -17,47 +17,85 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", sans-serif;
       color: #ffffff;
-      padding: 10px;
+      padding: 20px 10px;
     }
 
-    /* 播放器卡片整体 */
-    .player-card {
-      width: 340px;
-      background: #141519;
-      border-radius: 28px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85);
-      padding: 18px;
+    /* ====== iPhone 手机外壳 ====== */
+    .phone-container {
+      width: 360px;
+      background: #1c1d22;
+      border-radius: 46px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 0 2px #2d2f36;
+      padding: 12px 18px 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* iPhone 顶栏状态栏 & 灵动岛 */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 32px;
+      padding: 0 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      z-index: 20;
+    }
+
+    .dynamic-island {
+      width: 90px;
+      height: 24px;
+      background: #000000;
+      border-radius: 12px;
+      margin: 0 auto;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+    }
+
+    .battery-icon {
+      width: 20px;
+      height: 10px;
+      border: 1px solid #ffffff;
+      border-radius: 3px;
+      padding: 1px;
+      display: inline-block;
       position: relative;
     }
-
-    /* 顶部状态与歌曲信息 */
-    .song-header {
-      margin-bottom: 12px;
-      text-align: center;
+    .battery-icon::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 2px;
+      width: 2px;
+      height: 4px;
+      background: #ffffff;
+      border-radius: 0 1px 1px 0;
+    }
+    .battery-level {
+      width: 80%;
+      height: 100%;
+      background: #34c759;
+      border-radius: 1px;
     }
 
-    .song-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: #f0f0f5;
-      letter-spacing: 0.5px;
-    }
-
-    .song-artist {
-      font-size: 13px;
-      color: #8e8e99;
-      margin-top: 3px;
-    }
-
-    /* ====== 图二同款：精美黑胶唱机台座 ====== */
+    /* ====== 精美黑胶唱机台座（保持上一版样式） ====== */
     .turntable-deck {
-      width: 280px;
-      height: 280px;
-      margin: 0 auto 16px;
+      width: 290px;
+      height: 290px;
+      margin: 12px auto 16px;
       background: linear-gradient(145deg, #23242a, #16171b);
-      border-radius: 24px;
+      border-radius: 26px;
       box-shadow: 
         inset 1px 1px 2px rgba(255, 255, 255, 0.1),
         inset -2px -2px 6px rgba(0, 0, 0, 0.8),
@@ -69,7 +107,6 @@
       border: 1px solid #2a2b32;
     }
 
-    /* 左上角品牌/标志细节 */
     .deck-logo {
       position: absolute;
       top: 14px;
@@ -81,7 +118,6 @@
       opacity: 0.6;
     }
 
-    /* 右下角推子细节 */
     .deck-slider {
       position: absolute;
       bottom: 16px;
@@ -104,7 +140,6 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.8);
     }
 
-    /* 左下角指示灯 */
     .deck-power-led {
       position: absolute;
       bottom: 20px;
@@ -120,10 +155,9 @@
       box-shadow: 0 0 8px #30d158;
     }
 
-    /* 唱片托盘凹槽 */
     .platter-dish {
-      width: 236px;
-      height: 236px;
+      width: 242px;
+      height: 242px;
       border-radius: 50%;
       background: radial-gradient(circle, #0e0f12 0%, #1a1b21 70%, #0a0b0d 100%);
       box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9), 0 0 2px rgba(255,255,255,0.05);
@@ -133,10 +167,9 @@
       position: relative;
     }
 
-    /* 黑胶唱片本体（带有逼真唱片纹理） */
     .vinyl-record {
-      width: 216px;
-      height: 216px;
+      width: 222px;
+      height: 222px;
       border-radius: 50%;
       background: 
         repeating-radial-gradient(
@@ -153,7 +186,6 @@
       position: relative;
     }
 
-    /* 光泽反射效果 */
     .vinyl-record::before {
       content: "";
       position: absolute;
@@ -178,10 +210,9 @@
       animation: spinVinyl 12s linear infinite;
     }
 
-    /* 保持原头像不变（中间贴纸） */
     .record-cover {
-      width: 92px;
-      height: 92px;
+      width: 95px;
+      height: 95px;
       border-radius: 50%;
       border: 3px solid #0d0e11;
       object-fit: cover;
@@ -189,7 +220,6 @@
       z-index: 2;
     }
 
-    /* 精美金属唱针组 */
     .tonearm-base {
       position: absolute;
       top: 12px;
@@ -207,7 +237,7 @@
       top: 16px;
       right: 28px;
       width: 6px;
-      height: 105px;
+      height: 108px;
       background: linear-gradient(to right, #8a8d9b, #525461, #a1a4b3);
       border-radius: 3px;
       transform-origin: 3px 3px;
@@ -217,7 +247,6 @@
       z-index: 9;
     }
 
-    /* 唱头弯角与唱头 */
     .tonearm-arm::after {
       content: "";
       position: absolute;
@@ -235,55 +264,121 @@
       transform: rotate(6deg);
     }
 
-    /* 歌词区域 */
-    .lyrics-box {
-      height: 26px;
+    /* ====== 手机播放器信息区域 ====== */
+    .song-info-section {
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+
+    .song-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .song-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+    }
+
+    .like-badge {
+      color: #ff3b30;
+      font-size: 13px;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 3px;
+    }
+
+    .artist-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .artist-name {
+      font-size: 13px;
+      color: #9a9cae;
+    }
+
+    .tag-badge {
+      font-size: 10px;
+      color: #818496;
+      border: 1px solid #363845;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    /* 歌词动态显示 */
+    .lyrics-container {
+      height: 28px;
+      display: flex;
+      align-items: center;
       margin-bottom: 12px;
       overflow: hidden;
     }
 
-    .lyric-line {
+    .lyric-text {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 500;
       letter-spacing: 0.5px;
       background: linear-gradient(
         to right,
         #ffffff var(--lyric-progress, 0%),
-        #555866 var(--lyric-progress, 0%)
+        #5f6273 var(--lyric-progress, 0%)
       );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       transition: opacity 0.3s ease;
     }
 
-    /* 可拖拽滑动进度条 */
-    .progress-container {
+    /* 快捷小图标栏 */
+    .quick-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
       margin-bottom: 14px;
+      color: #727585;
+      font-size: 12px;
+    }
+
+    .tool-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    /* 可拖拽滑动进度条 */
+    .progress-section {
+      margin-bottom: 16px;
       cursor: pointer;
       padding: 4px 0;
     }
 
-    .progress-bar {
+    .progress-track {
       width: 100%;
-      height: 4px;
-      background: #252730;
+      height: 3px;
+      background: #333542;
       position: relative;
       border-radius: 2px;
     }
 
-    .progress-current {
+    .progress-fill {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      background: #ffffff;
       border-radius: 2px;
     }
 
-    .progress-dot {
+    .progress-knob {
       position: absolute;
-      top: -4px;
+      top: -4.5px;
       left: 0%;
       width: 12px;
       height: 12px;
@@ -293,38 +388,38 @@
       box-shadow: 0 0 6px rgba(0,0,0,0.5);
     }
 
-    .time-stamps {
+    .time-display {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
-      color: #6b6d7c;
+      color: #646777;
       margin-top: 6px;
     }
 
-    /* 底部按钮 */
-    .controls-wrapper {
+    /* 播放控制层 */
+    .controls-bar {
       display: flex;
       justify-content: space-around;
       align-items: center;
+      margin-bottom: 10px;
     }
 
-    .ctrl-btn {
-      font-size: 20px;
-      color: #7b7d8c;
+    .icon-btn {
+      font-size: 22px;
+      color: #a0a3b5;
       cursor: pointer;
       user-select: none;
       transition: color 0.2s;
     }
 
-    .ctrl-btn:hover {
+    .icon-btn:hover {
       color: #ffffff;
     }
 
-    .play-btn {
-      width: 52px;
-      height: 52px;
-      background: linear-gradient(135deg, #2b2c36, #1c1d24);
-      border: 1px solid #3d3f4d;
+    .play-main-btn {
+      width: 54px;
+      height: 54px;
+      border: 2px solid #ffffff;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -333,22 +428,35 @@
       font-size: 20px;
       cursor: pointer;
       user-select: none;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
       padding-left: 3px;
-      transition: transform 0.1s, border-color 0.2s;
+      transition: transform 0.1s;
     }
 
-    .play-btn:active {
-      transform: scale(0.95);
+    .play-main-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* iPhone 底部指示条 Home Bar */
+    .home-indicator {
+      width: 134px;
+      height: 5px;
+      background: #6a6d7d;
+      border-radius: 3px;
+      margin: 8px auto 0;
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
 
-  <div class="player-card">
-    <div class="song-header">
-      <div class="song-title">快乐不知时日</div>
-      <div class="song-artist">Dear Jane</div>
+  <div class="phone-container">
+    <div class="status-bar">
+      <span>08:30</span>
+      <div class="dynamic-island"></div>
+      <div class="status-right">
+        <span>5G</span>
+        <div class="battery-icon"><div class="battery-level"></div></div>
+      </div>
     </div>
 
     <div class="turntable-deck">
@@ -369,28 +477,52 @@
       </div>
     </div>
 
-    <div class="lyrics-box">
-      <span class="lyric-line" id="lyricLine" style="--lyric-progress: 40%;">记住每分钟</span>
+    <div class="song-info-section">
+      <div class="song-title-row">
+        <span class="song-title">快乐不知时日</span>
+        <span class="like-badge">❤️ 500w+</span>
+      </div>
+      <div class="artist-row">
+        <span class="artist-name">Dear Jane</span>
+        <span class="tag-badge">5k人</span>
+        <span class="tag-badge">VIP</span>
+        <span class="tag-badge">HQ</span>
+        <span class="tag-badge">视频</span>
+      </div>
+
+      <div class="lyrics-container">
+        <span class="lyric-text" id="lyricLine" style="--lyric-progress: 40%;">记住每分钟</span>
+      </div>
     </div>
 
-    <div class="progress-container" id="progressArea">
-      <div class="progress-bar">
-        <div class="progress-current" id="progressCurrent"></div>
-        <div class="progress-dot" id="progressDot"></div>
+    <div class="quick-tools">
+      <div class="tool-item">🎤 99+</div>
+      <div class="tool-item">🎧 off</div>
+      <div class="tool-item">📥</div>
+      <div class="tool-item">💬 1w+</div>
+      <div class="tool-item">⋮</div>
+    </div>
+
+    <div class="progress-section" id="progressArea">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressCurrent"></div>
+        <div class="progress-knob" id="progressDot"></div>
       </div>
-      <div class="time-stamps">
+      <div class="time-display">
         <span id="currentTime">00:00</span>
         <span id="durationTime">00:00</span>
       </div>
     </div>
 
-    <div class="controls-wrapper">
-      <span class="ctrl-btn">🔁</span>
-      <span class="ctrl-btn">⏮</span>
-      <div class="play-btn" id="playBtn">▶</div>
-      <span class="ctrl-btn">⏭</span>
-      <span class="ctrl-btn">☰</span>
+    <div class="controls-bar">
+      <span class="icon-btn">🔁</span>
+      <span class="icon-btn">⏮</span>
+      <div class="play-main-btn" id="playBtn">▶</div>
+      <span class="icon-btn">⏭</span>
+      <span class="icon-btn">☰</span>
     </div>
+
+    <div class="home-indicator"></div>
   </div>
 
   <audio id="audioPlayer" src="https://ia601601.us.archive.org/21/items/lyhsun/time-flies_%28cut%29.mp3" preload="metadata"></audio>
