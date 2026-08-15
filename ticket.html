@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>无条件投降乐队 - 电子门票</title>
+<title>无条件投降乐队 - 电子门票 (正反面)</title>
 <!-- 引入飘逸手写与迷幻摇滚艺术字体 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,28 +19,49 @@
   body {
     background-color: #0a090e;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
+    padding: 40px 0;
+    gap: 40px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
   }
 
-  /* 门票主容器 */
+  /* 页面卡片区域标识 */
+  .ticket-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .side-label {
+    font-size: 11px;
+    color: #8a8aa8;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* 通用门票主容器 */
   .ticket {
     display: flex;
     width: 700px;
     height: 270px;
-    background: linear-gradient(135deg, #160826 0%, #090314 60%, #1a0033 100%);
     border-radius: 16px;
     position: relative;
     overflow: hidden;
     color: #ffffff;
-    box-shadow: 0 15px 35px rgba(255, 0, 128, 0.25), 0 0 45px rgba(0, 240, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
-  /* 迷幻霓光背景叠加层 */
-  .ticket::before {
+  /* 正面专属样式 */
+  .ticket-front {
+    background: linear-gradient(135deg, #160826 0%, #090314 60%, #1a0033 100%);
+    box-shadow: 0 15px 35px rgba(255, 0, 128, 0.25), 0 0 45px rgba(0, 240, 255, 0.2);
+  }
+
+  .ticket-front::before {
     content: '';
     position: absolute;
     top: -50%;
@@ -48,6 +69,23 @@
     width: 140%;
     height: 200%;
     background: radial-gradient(circle at 30% 30%, rgba(255, 0, 128, 0.3) 0%, rgba(0, 240, 255, 0.18) 35%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 反面专属样式 */
+  .ticket-back {
+    background: linear-gradient(135deg, #090314 0%, #160826 50%, #05020a 100%);
+    box-shadow: 0 15px 35px rgba(0, 240, 255, 0.15), 0 0 45px rgba(255, 0, 128, 0.15);
+  }
+
+  .ticket-back::before {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(circle at 70% 70%, rgba(0, 240, 255, 0.2) 0%, rgba(255, 0, 127, 0.15) 35%, transparent 70%);
     pointer-events: none;
   }
 
@@ -84,11 +122,10 @@
     font-size: 14px;
     color: #00f0ff;
     letter-spacing: 3px;
-    font-family: 'Ma Shan Zheng', cursive, sans-serif; /* 飘逸古风/手写感 */
+    font-family: 'Ma Shan Zheng', cursive, sans-serif;
     text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
   }
 
-  /* 乐队名称：飘逸迷幻草书手写风格 */
   .band-name {
     font-family: 'Zhi Mang Xing', 'Ma Shan Zheng', cursive, sans-serif;
     font-size: 50px;
@@ -100,11 +137,11 @@
     -webkit-text-fill-color: transparent;
     margin: 2px 0;
     filter: drop-shadow(0 0 12px rgba(255, 0, 127, 0.4));
-    transform: rotate(-1.5deg); /* 微倾斜增强飘逸感 */
+    transform: rotate(-1.5deg);
   }
 
   .genre-sub {
-    font-family: 'Caveat', cursive, sans-serif; /* 英文手写风 */
+    font-family: 'Caveat', cursive, sans-serif;
     font-size: 16px;
     color: #a8a8cf;
     letter-spacing: 3px;
@@ -132,7 +169,6 @@
     color: #e2e2ff;
   }
 
-  /* 座位信息框 */
   .seat-grid {
     display: flex;
     gap: 22px;
@@ -160,7 +196,7 @@
     color: #fff;
   }
 
-  /* 虚线分割线及缺口圆角 */
+  /* 虚线分割线 */
   .stub-divider {
     width: 1px;
     border-left: 2px dashed rgba(255, 255, 255, 0.25);
@@ -182,7 +218,7 @@
   .stub-divider::before { top: -25px; }
   .stub-divider::after { bottom: -25px; }
 
-  /* 门票右侧存根（Stub） */
+  /* 右侧副券 */
   .stub-info {
     width: 175px;
     padding: 24px 16px;
@@ -211,7 +247,6 @@
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
   }
 
-  /* CSS 条形码生成 */
   .barcode {
     width: 115px;
     height: 42px;
@@ -234,67 +269,200 @@
     color: #8a8aa8;
     letter-spacing: 1px;
   }
+
+  /* 反面特有内容样式 */
+  .back-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Ma Shan Zheng', cursive, sans-serif;
+    font-size: 22px;
+    color: #00f0ff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+  }
+
+  .warning-tag {
+    font-family: 'Caveat', cursive, sans-serif;
+    color: #ff007f;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .notice-list {
+    list-style: none;
+    margin: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .notice-list li {
+    font-size: 11px;
+    color: #b8b8d0;
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .notice-list li::before {
+    content: '✦';
+    color: #ccff00;
+    font-size: 10px;
+    margin-top: 1px;
+  }
+
+  .highlight {
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+  .psychedelic-slogan {
+    font-family: 'Zhi Mang Xing', cursive, sans-serif;
+    font-size: 20px;
+    background: linear-gradient(90deg, #ccff00, #00f0ff, #ff007f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    text-align: right;
+  }
+
+  .qr-placeholder {
+    width: 90px;
+    height: 90px;
+    background: #ffffff;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+  }
+
+  .qr-code-pattern {
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 30% 30%, #000 15%, transparent 16%),
+      radial-gradient(circle at 70% 70%, #000 15%, transparent 16%),
+      repeating-linear-gradient(45deg, #000 0, #000 4px, #fff 4px, #fff 8px);
+    border: 2px solid #000;
+  }
+
+  .stub-tips {
+    font-size: 9px;
+    color: #8a8aa8;
+    line-height: 1.3;
+  }
 </style>
 </head>
 <body>
 
-  <div class="ticket">
-    <!-- 主体区域 -->
-    <div class="main-info">
-      <div class="header-tag">
-        <span class="tag">Livehouse Concert</span>
-        <span class="tour-title">2026 迷幻幻象巡演</span>
+  <!-- 门票正面 -->
+  <div class="ticket-wrapper">
+    <div class="side-label">FRONT / 正面</div>
+    <div class="ticket ticket-front">
+      <div class="main-info">
+        <div class="header-tag">
+          <span class="tag">Livehouse Concert</span>
+          <span class="tour-title">2026 迷幻幻象巡演</span>
+        </div>
+
+        <div>
+          <h1 class="band-name">无条件投降</h1>
+          <p class="genre-sub">Unconditional Surrender // Psych-Rock</p>
+        </div>
+
+        <div class="event-details">
+          <div class="detail-item">
+            <label>DATE & TIME</label>
+            <span>2026.10.24 Sat 20:30</span>
+          </div>
+          <div class="detail-item">
+            <label>VENUE</label>
+            <span>OMNI SPACE 迷幻空间</span>
+          </div>
+        </div>
+
+        <div class="seat-grid">
+          <div class="seat-box">
+            <label>SEC</label>
+            <span>GA</span>
+          </div>
+          <div class="seat-box">
+            <label>ROW</label>
+            <span>FL2</span>
+          </div>
+          <div class="seat-box">
+            <label>NO.</label>
+            <span>042</span>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <h1 class="band-name">无条件投降</h1>
-        <p class="genre-sub">Unconditional Surrender // Psych-Rock</p>
-      </div>
+      <div class="stub-divider"></div>
 
-      <div class="event-details">
-        <div class="detail-item">
-          <label>DATE & TIME</label>
-          <span>2026.10.24 Sat 20:30</span>
+      <div class="stub-info">
+        <div>
+          <div class="stub-header">ADMIT ONE</div>
+          <div class="stub-band">无条件投降</div>
         </div>
-        <div class="detail-item">
-          <label>VENUE</label>
-          <span>OMNI SPACE 迷幻空间</span>
-        </div>
-      </div>
 
-      <div class="seat-grid">
-        <div class="seat-box">
-          <label>SEC</label>
-          <span>GA</span>
+        <div>
+          <div class="barcode"></div>
+          <div class="ticket-num">#US-2026-9904</div>
         </div>
-        <div class="seat-box">
-          <label>ROW</label>
-          <span>FL2</span>
-        </div>
-        <div class="seat-box">
-          <label>NO.</label>
-          <span>042</span>
+
+        <div style="font-size: 9px; color: #ccff00; letter-spacing: 1px;">
+          ★ NO REFUNDS ★
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- 虚线分割线 -->
-    <div class="stub-divider"></div>
+  <!-- 门票反面 -->
+  <div class="ticket-wrapper">
+    <div class="side-label">BACK / 反面</div>
+    <div class="ticket ticket-back">
+      <div class="main-info">
+        <div class="back-header">
+          <span class="section-title">观演须知 & 入场指南</span>
+          <span class="warning-tag"># Surrender To The Sound</span>
+        </div>
 
-    <!-- 右侧副券/验票存根 -->
-    <div class="stub-info">
-      <div>
-        <div class="stub-header">ADMIT ONE</div>
-        <div class="stub-band">无条件投降</div>
+        <ul class="notice-list">
+          <li><span class="highlight">入场时间：</span>演出前 45 分钟开放验票，请提前出示电子票二维码。</li>
+          <li><span class="highlight">现场特效：</span>演出包含大量频闪灯光及强声波，孕妇及高血压患者请注意防护。</li>
+          <li><span class="highlight">物品限制：</span>严禁携带冷焰火、易燃易爆品及专业摄影摄像设备入场。</li>
+          <li><span class="highlight">安全提醒：</span>Pogo 及 Mosh Pit 区域请注意自身安全，互助礼让，谨防摔倒。</li>
+        </ul>
+
+        <div class="psychedelic-slogan">
+          “放弃抵抗，沉入频波与幻象之中”
+        </div>
       </div>
 
-      <div>
-        <div class="barcode"></div>
-        <div class="ticket-num">#US-2026-9904</div>
-      </div>
+      <div class="stub-divider"></div>
 
-      <div style="font-size: 9px; color: #ccff00; letter-spacing: 1px;">
-        ★ NO REFUNDS ★
+      <div class="stub-info">
+        <div style="font-size: 10px; color: #ccff00; font-weight: bold; letter-spacing: 1px;">
+          SCAN FOR MAP
+        </div>
+
+        <div class="qr-placeholder">
+          <div class="qr-code-pattern"></div>
+        </div>
+
+        <div class="stub-tips">
+          扫码获取场馆地图<br>
+          & 乐队周边发售区
+        </div>
       </div>
     </div>
   </div>
