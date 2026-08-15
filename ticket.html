@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无条件投降乐队 - 电子门票</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #0a090e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* 门票主容器 */
+  .ticket {
+    display: flex;
+    width: 680px;
+    height: 260px;
+    background: linear-gradient(135deg, #160826 0%, #090314 60%, #1a0033 100%);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    box-shadow: 0 15px 35px rgba(255, 0, 128, 0.2), 0 0 40px rgba(0, 240, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* 迷幻霓光背景叠加层 */
+  .ticket::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 0, 128, 0.25) 0%, rgba(0, 240, 255, 0.15) 35%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* 门票左侧主体 */
+  .main-info {
+    flex: 1;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tag {
+    background: #ccff00;
+    color: #000;
+    font-weight: 900;
+    font-size: 10px;
+    padding: 3px 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+
+  .tour-title {
+    font-size: 11px;
+    color: #00f0ff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* 乐队名称：迷幻渐变与辉光效果 */
+  .band-name {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #ff007f, #00f0ff, #ccff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    margin: 4px 0 2px 0;
+    text-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+  }
+
+  .genre-sub {
+    font-size: 11px;
+    color: #8a8aa8;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .event-details {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+  }
+
+  .detail-item label {
+    display: block;
+    font-size: 9px;
+    color: #6c6c8c;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .detail-item span {
+    font-size: 13px;
+    font-weight: 700;
+    color: #e2e2ff;
+  }
+
+  /* 座位信息框 */
+  .seat-grid {
+    display: flex;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    width: fit-content;
+  }
+
+  .seat-box {
+    text-align: center;
+  }
+
+  .seat-box label {
+    font-size: 8px;
+    color: #ccff00;
+    letter-spacing: 1px;
+    display: block;
+  }
+
+  .seat-box span {
+    font-size: 16px;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  /* 虚线分割线及缺口圆角 */
+  .stub-divider {
+    width: 1px;
+    border-left: 2px dashed rgba(255, 255, 255, 0.2);
+    position: relative;
+    margin: 12px 0;
+  }
+
+  .stub-divider::before,
+  .stub-divider::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-color: #0a090e;
+    border-radius: 50%;
+    left: -12px;
+  }
+
+  .stub-divider::before { top: -24px; }
+  .stub-divider::after { bottom: -24px; }
+
+  /* 门票右侧存根（Stub） */
+  .stub-info {
+    width: 170px;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .stub-header {
+    font-size: 11px;
+    font-weight: 800;
+    color: #ff007f;
+    letter-spacing: 1px;
+  }
+
+  .stub-band {
+    font-size: 14px;
+    font-weight: 900;
+    color: #fff;
+    margin-top: 2px;
+  }
+
+  /* CSS 条形码生成 */
+  .barcode {
+    width: 110px;
+    height: 42px;
+    background: repeating-linear-gradient(
+      90deg,
+      #fff 0px, #fff 2px,
+      transparent 2px, transparent 4px,
+      #fff 4px, #fff 8px,
+      transparent 8px, transparent 9px,
+      #fff 9px, #fff 11px,
+      transparent 11px, transparent 14px,
+      #fff 14px, #fff 15px
+    );
+    margin: 8px 0;
+  }
+
+  .ticket-num {
+    font-family: monospace;
+    font-size: 10px;
+    color: #7a7a9a;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="ticket">
+    <!-- 主体区域 -->
+    <div class="main-info">
+      <div class="header-tag">
+        <span class="tag">Livehouse Concert</span>
+        <span class="tour-title">2026 迷幻幻象巡演</span>
+      </div>
+
+      <div>
+        <h1 class="band-name">无条件投降</h1>
+        <p class="genre-sub">UNCONDITIONAL SURRENDER // PSYCH-ROCK</p>
+      </div>
+
+      <div class="event-details">
+        <div class="detail-item">
+          <label>DATE & TIME</label>
+          <span>2026.10.24 Sat 20:30</span>
+        </div>
+        <div class="detail-item">
+          <label>VENUE</label>
+          <span>OMNI SPACE 迷幻空间</span>
+        </div>
+      </div>
+
+      <div class="seat-grid">
+        <div class="seat-box">
+          <label>SEC</label>
+          <span>GA</span>
+        </div>
+        <div class="seat-box">
+          <label>ROW</label>
+          <span>FL2</span>
+        </div>
+        <div class="seat-box">
+          <label>NO.</label>
+          <span>042</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 虚线分割线 -->
+    <div class="stub-divider"></div>
+
+    <!-- 右侧副券/验票存根 -->
+    <div class="stub-info">
+      <div>
+        <div class="stub-header">ADMIT ONE</div>
+        <div class="stub-band">无条件投降</div>
+      </div>
+
+      <div>
+        <div class="barcode"></div>
+        <div class="ticket-num">#US-2026-9904</div>
+      </div>
+
+      <div style="font-size: 9px; color: #ccff00; letter-spacing: 1px;">
+        ★ NO REFUNDS ★
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
