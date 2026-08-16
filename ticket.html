@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>无条件投降乐队 - 蓝调迷幻电子门票</title>
-<!-- 引入艺术衬线字体 (Playfair Display / Noto Serif SC) 与 无衬线字体 -->
+<title>无条件投降乐队 - 电子门票</title>
+<!-- 引入艺术字体库 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
   }
 
   body {
-    background-color: #030114;
+    background-color: #020036;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,7 +28,7 @@
     font-family: 'Space Grotesk', -apple-system, sans-serif;
   }
 
-  /* 页面展示标签 */
+  /* 外层容器 */
   .ticket-wrapper {
     display: flex;
     flex-direction: column;
@@ -44,45 +44,54 @@
     text-transform: uppercase;
   }
 
-  /* 门票卡片通用基础 */
+  /* 门票主卡片 */
   .ticket {
     display: flex;
     width: 700px;
     height: 275px;
-    border-radius: 12px;
+    border-radius: 14px;
     position: relative;
     overflow: hidden;
     color: #ffffff;
-    /* 图一高饱和宝蓝底色 + 图二中心红晕扩散效果 */
-    background: #0400d3;
-    box-shadow: 0 20px 50px rgba(4, 0, 211, 0.4), 0 0 30px rgba(255, 42, 69, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    /* 图一风格：流动光晕背景 */
+    background: radial-gradient(circle at 85% 15%, #ff2a45 0%, rgba(255, 42, 69, 0.7) 22%, rgba(255, 255, 255, 0.25) 38%, #030094 65%, #010048 100%);
+    box-shadow: 0 20px 50px rgba(1, 0, 72, 0.6), 0 0 30px rgba(255, 42, 69, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  /* 图二经典迷幻红晕渐变叠加层 */
-  .ticket::before {
+  /* 图一风格：复古胶片胶卷噪点/纹理质感 (SVG Noise) */
+  .ticket::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 40%;
-    transform: translate(-50%, -50%);
-    width: 320px;
-    height: 220px;
-    background: radial-gradient(circle, rgba(255, 42, 69, 0.75) 0%, rgba(226, 40, 100, 0.4) 45%, transparent 75%);
-    filter: blur(35px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
     pointer-events: none;
-    z-index: 0;
+    z-index: 2;
+  }
+
+  /* 正面专属的逆向光源渐变 */
+  .ticket-front {
+    background: radial-gradient(circle at 85% 15%, #ff2a45 0%, rgba(255, 42, 69, 0.65) 25%, rgba(255, 255, 255, 0.3) 40%, #030094 65%, #010048 100%);
+  }
+
+  /* 反面专属的右下角光晕渐变 */
+  .ticket-back {
+    background: radial-gradient(circle at 15% 85%, #ff2a45 0%, rgba(255, 42, 69, 0.65) 25%, rgba(255, 255, 255, 0.3) 40%, #030094 65%, #010048 100%);
   }
 
   /* 门票左侧主体 */
   .main-info {
     flex: 1;
-    padding: 24px 30px;
+    padding: 26px 32px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    z-index: 1;
+    z-index: 3;
   }
 
   .header-tag {
@@ -91,12 +100,12 @@
     align-items: center;
   }
 
-  /* 图二朱红与纯白高对比字体 */
+  /* 三色配色：朱红 / 宝蓝 / 纯白 */
   .tag {
     color: #ff2a45;
     font-family: 'Playfair Display', serif;
     font-weight: 900;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 2px;
     text-transform: uppercase;
   }
@@ -106,28 +115,28 @@
     color: #ffffff;
     letter-spacing: 3px;
     font-weight: 700;
-    opacity: 0.9;
+    opacity: 0.95;
   }
 
-  /* 乐队名称：参考 Embassa't 经典红字艺术衬线风格 */
+  /* 乐队主视觉标题 */
   .band-name {
     font-family: 'Noto Serif SC', 'Playfair Display', serif;
-    font-size: 46px;
+    font-size: 48px;
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: 3px;
-    color: #ff2a45;
+    color: #ffffff;
     margin: 2px 0 4px 0;
-    text-shadow: 0 0 15px rgba(255, 42, 69, 0.4);
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   }
 
   .genre-sub {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 11px;
-    color: #ffffff;
+    color: #ff2a45;
     letter-spacing: 4px;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 700;
   }
 
   .event-details {
@@ -139,9 +148,10 @@
   .detail-item label {
     display: block;
     font-size: 9px;
-    color: #a2b0ff;
+    color: #ffffff;
     letter-spacing: 1.5px;
     margin-bottom: 2px;
+    opacity: 0.75;
   }
 
   .detail-item span {
@@ -151,15 +161,15 @@
     font-family: 'Playfair Display', serif;
   }
 
-  /* 座位区域样式 */
+  /* 座位信息区 */
   .seat-grid {
     display: flex;
     gap: 20px;
-    background: rgba(3, 1, 20, 0.4);
+    background: rgba(1, 0, 40, 0.45);
     backdrop-filter: blur(8px);
     padding: 6px 16px;
     border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     width: fit-content;
   }
 
@@ -178,16 +188,16 @@
   .seat-box span {
     font-size: 15px;
     font-weight: 700;
-    color: #fff;
+    color: #ffffff;
   }
 
-  /* 撕口打孔虚线 */
+  /* 缺口打孔虚线 */
   .stub-divider {
     width: 1px;
-    border-left: 2px dashed rgba(255, 255, 255, 0.3);
+    border-left: 2px dashed rgba(255, 255, 255, 0.4);
     position: relative;
     margin: 12px 0;
-    z-index: 1;
+    z-index: 3;
   }
 
   .stub-divider::before,
@@ -196,25 +206,26 @@
     position: absolute;
     width: 24px;
     height: 24px;
-    background-color: #030114;
+    background-color: #020036;
     border-radius: 50%;
     left: -13px;
+    z-index: 4;
   }
 
   .stub-divider::before { top: -25px; }
   .stub-divider::after { bottom: -25px; }
 
-  /* 右侧存根副券 */
+  /* 右侧副券 */
   .stub-info {
     width: 175px;
-    padding: 24px 16px;
+    padding: 26px 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background: rgba(2, 0, 70, 0.5);
+    background: rgba(1, 0, 40, 0.35);
     position: relative;
-    z-index: 1;
+    z-index: 3;
     text-align: center;
   }
 
@@ -234,19 +245,19 @@
     margin-top: 2px;
   }
 
-  /* 纯白色条形码 */
+  /* 纯白条形码 */
   .barcode {
     width: 115px;
     height: 42px;
     background: repeating-linear-gradient(
       90deg,
-      #fff 0px, #fff 2px,
+      #ffffff 0px, #ffffff 2px,
       transparent 2px, transparent 4px,
-      #fff 4px, #fff 8px,
+      #ffffff 4px, #ffffff 8px,
       transparent 8px, transparent 9px,
-      #fff 9px, #fff 11px,
+      #ffffff 9px, #ffffff 11px,
       transparent 11px, transparent 14px,
-      #fff 14px, #fff 15px
+      #ffffff 14px, #ffffff 15px
     );
     margin: 8px 0;
   }
@@ -254,11 +265,12 @@
   .ticket-num {
     font-family: monospace;
     font-size: 10px;
-    color: #a2b0ff;
+    color: #ffffff;
+    opacity: 0.8;
     letter-spacing: 1px;
   }
 
-  /* 反面特有样式 */
+  /* 反面排版特有样式 */
   .back-header {
     display: flex;
     justify-content: space-between;
@@ -271,15 +283,16 @@
     font-family: 'Noto Serif SC', serif;
     font-size: 18px;
     font-weight: 900;
-    color: #ff2a45;
+    color: #ffffff;
     letter-spacing: 2px;
   }
 
   .warning-tag {
     font-family: 'Playfair Display', serif;
-    color: #ffffff;
+    color: #ff2a45;
     font-size: 14px;
     font-style: italic;
+    font-weight: 700;
   }
 
   .notice-list {
@@ -292,7 +305,8 @@
 
   .notice-list li {
     font-size: 11px;
-    color: #e0e6ff;
+    color: #ffffff;
+    opacity: 0.9;
     line-height: 1.4;
     display: flex;
     align-items: flex-start;
@@ -336,15 +350,16 @@
     width: 100%;
     height: 100%;
     background: 
-      radial-gradient(circle at 30% 30%, #0400d3 15%, transparent 16%),
-      radial-gradient(circle at 70% 70%, #0400d3 15%, transparent 16%),
-      repeating-linear-gradient(45deg, #0400d3 0, #0400d3 4px, #fff 4px, #fff 8px);
-    border: 2px solid #0400d3;
+      radial-gradient(circle at 30% 30%, #030094 15%, transparent 16%),
+      radial-gradient(circle at 70% 70%, #030094 15%, transparent 16%),
+      repeating-linear-gradient(45deg, #030094 0, #030094 4px, #fff 4px, #fff 8px);
+    border: 2px solid #030094;
   }
 
   .stub-tips {
     font-size: 9px;
-    color: #a2b0ff;
+    color: #ffffff;
+    opacity: 0.85;
     line-height: 1.3;
   }
 </style>
@@ -354,7 +369,7 @@
   <!-- 正面 -->
   <div class="ticket-wrapper">
     <div class="side-label">FRONT / 正面</div>
-    <div class="ticket">
+    <div class="ticket ticket-front">
       <div class="main-info">
         <div class="header-tag">
           <span class="tag">Embassa't Live</span>
@@ -416,7 +431,7 @@
   <!-- 反面 -->
   <div class="ticket-wrapper">
     <div class="side-label">BACK / 反面</div>
-    <div class="ticket">
+    <div class="ticket ticket-back">
       <div class="main-info">
         <div class="back-header">
           <span class="section-title">观演须知 & 入场指南</span>
