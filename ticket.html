@@ -23,9 +23,10 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 40px 0;
-    gap: 40px;
+    padding: 20px 0;
+    gap: 30px;
     font-family: 'Space Grotesk', -apple-system, sans-serif;
+    overflow-x: hidden;
   }
 
   /* 外层容器 */
@@ -34,6 +35,9 @@
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    width: 100%;
+    max-width: 700px;
+    padding: 0 16px;
   }
 
   .side-label {
@@ -44,23 +48,24 @@
     text-transform: uppercase;
   }
 
-  /* 门票主卡片 */
+  /* 门票主卡片 - 响应式设置 */
   .ticket {
     display: flex;
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     height: 275px;
     border-radius: 14px;
     position: relative;
     overflow: hidden;
     color: #ffffff;
     
-    /* 图一风格：流动光晕背景 */
+    /* 流动光晕背景 */
     background: radial-gradient(circle at 85% 15%, #ff2a45 0%, rgba(255, 42, 69, 0.7) 22%, rgba(255, 255, 255, 0.25) 38%, #030094 65%, #010048 100%);
     box-shadow: 0 20px 50px rgba(1, 0, 72, 0.6), 0 0 30px rgba(255, 42, 69, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  /* 图一风格：复古胶片胶卷噪点/纹理质感 (SVG Noise) */
+  /* 胶片噪点/纹理质感 */
   .ticket::after {
     content: '';
     position: absolute;
@@ -73,12 +78,10 @@
     z-index: 2;
   }
 
-  /* 正面专属的逆向光源渐变 */
   .ticket-front {
     background: radial-gradient(circle at 85% 15%, #ff2a45 0%, rgba(255, 42, 69, 0.65) 25%, rgba(255, 255, 255, 0.3) 40%, #030094 65%, #010048 100%);
   }
 
-  /* 反面专属的右下角光晕渐变 */
   .ticket-back {
     background: radial-gradient(circle at 15% 85%, #ff2a45 0%, rgba(255, 42, 69, 0.65) 25%, rgba(255, 255, 255, 0.3) 40%, #030094 65%, #010048 100%);
   }
@@ -86,12 +89,13 @@
   /* 门票左侧主体 */
   .main-info {
     flex: 1;
-    padding: 26px 32px;
+    padding: 24px 28px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     z-index: 3;
+    min-width: 0; /* 放置手机端文字溢出 */
   }
 
   .header-tag {
@@ -100,7 +104,6 @@
     align-items: center;
   }
 
-  /* 三色配色：朱红 / 宝蓝 / 纯白 */
   .tag {
     color: #ff2a45;
     font-family: 'Playfair Display', serif;
@@ -113,7 +116,7 @@
   .tour-title {
     font-size: 12px;
     color: #ffffff;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     font-weight: 700;
     opacity: 0.95;
   }
@@ -121,27 +124,28 @@
   /* 乐队主视觉标题 */
   .band-name {
     font-family: 'Noto Serif SC', 'Playfair Display', serif;
-    font-size: 48px;
+    font-size: 44px;
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: 3px;
     color: #ffffff;
     margin: 2px 0 4px 0;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
   }
 
   .genre-sub {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     color: #ff2a45;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     font-weight: 700;
   }
 
   .event-details {
     display: flex;
-    gap: 32px;
+    gap: 24px;
     margin-top: 6px;
   }
 
@@ -164,10 +168,10 @@
   /* 座位信息区 */
   .seat-grid {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     background: rgba(1, 0, 40, 0.45);
     backdrop-filter: blur(8px);
-    padding: 6px 16px;
+    padding: 6px 14px;
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     width: fit-content;
@@ -186,7 +190,7 @@
   }
 
   .seat-box span {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: #ffffff;
   }
@@ -198,27 +202,28 @@
     position: relative;
     margin: 12px 0;
     z-index: 3;
+    flex-shrink: 0;
   }
 
   .stub-divider::before,
   .stub-divider::after {
     content: '';
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     background-color: #020036;
     border-radius: 50%;
-    left: -13px;
+    left: -12px;
     z-index: 4;
   }
 
-  .stub-divider::before { top: -25px; }
-  .stub-divider::after { bottom: -25px; }
+  .stub-divider::before { top: -23px; }
+  .stub-divider::after { bottom: -23px; }
 
   /* 右侧副券 */
   .stub-info {
-    width: 175px;
-    padding: 26px 16px;
+    width: 160px;
+    padding: 24px 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -227,11 +232,12 @@
     position: relative;
     z-index: 3;
     text-align: center;
+    flex-shrink: 0;
   }
 
   .stub-header {
     font-family: 'Playfair Display', serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 900;
     color: #ff2a45;
     letter-spacing: 2px;
@@ -239,16 +245,16 @@
 
   .stub-band {
     font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: #ffffff;
     margin-top: 2px;
   }
 
-  /* 纯白条形码 */
+  /* 条形码 */
   .barcode {
-    width: 115px;
-    height: 42px;
+    width: 105px;
+    height: 38px;
     background: repeating-linear-gradient(
       90deg,
       #ffffff 0px, #ffffff 2px,
@@ -259,29 +265,29 @@
       transparent 11px, transparent 14px,
       #ffffff 14px, #ffffff 15px
     );
-    margin: 8px 0;
+    margin: 6px 0;
   }
 
   .ticket-num {
     font-family: monospace;
-    font-size: 10px;
+    font-size: 9px;
     color: #ffffff;
     opacity: 0.8;
     letter-spacing: 1px;
   }
 
-  /* 反面排版特有样式 */
+  /* 反面排版样式 */
   .back-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(255, 42, 69, 0.4);
-    padding-bottom: 8px;
+    padding-bottom: 6px;
   }
 
   .section-title {
     font-family: 'Noto Serif SC', serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 900;
     color: #ffffff;
     letter-spacing: 2px;
@@ -290,33 +296,33 @@
   .warning-tag {
     font-family: 'Playfair Display', serif;
     color: #ff2a45;
-    font-size: 14px;
+    font-size: 13px;
     font-style: italic;
     font-weight: 700;
   }
 
   .notice-list {
     list-style: none;
-    margin: 8px 0;
+    margin: 6px 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
   .notice-list li {
-    font-size: 11px;
+    font-size: 10px;
     color: #ffffff;
     opacity: 0.9;
-    line-height: 1.4;
+    line-height: 1.35;
     display: flex;
     align-items: flex-start;
-    gap: 6px;
+    gap: 5px;
   }
 
   .notice-list li::before {
     content: '■';
     color: #ff2a45;
-    font-size: 8px;
+    font-size: 7px;
     margin-top: 3px;
   }
 
@@ -327,7 +333,7 @@
 
   .psychedelic-slogan {
     font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: #ff2a45;
     letter-spacing: 2px;
@@ -335,10 +341,10 @@
   }
 
   .qr-placeholder {
-    width: 85px;
-    height: 85px;
+    width: 75px;
+    height: 75px;
     background: #ffffff;
-    padding: 5px;
+    padding: 4px;
     border-radius: 6px;
     display: flex;
     justify-content: center;
@@ -357,10 +363,112 @@
   }
 
   .stub-tips {
-    font-size: 9px;
+    font-size: 8px;
     color: #ffffff;
     opacity: 0.85;
-    line-height: 1.3;
+    line-height: 1.2;
+  }
+
+  /* ===== 手机移动端自适应适配 (Media Queries) ===== */
+  @media (max-width: 650px) {
+    .ticket {
+      height: 230px;
+      border-radius: 10px;
+    }
+
+    .main-info {
+      padding: 16px 18px;
+    }
+
+    .band-name {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+
+    .genre-sub {
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .tag {
+      font-size: 11px;
+    }
+
+    .tour-title {
+      font-size: 10px;
+    }
+
+    .event-details {
+      gap: 14px;
+    }
+
+    .detail-item span {
+      font-size: 11px;
+    }
+
+    .seat-grid {
+      padding: 4px 10px;
+      gap: 10px;
+    }
+
+    .seat-box span {
+      font-size: 12px;
+    }
+
+    .stub-info {
+      width: 125px;
+      padding: 16px 8px;
+    }
+
+    .stub-header {
+      font-size: 12px;
+    }
+
+    .stub-band {
+      font-size: 13px;
+    }
+
+    .barcode {
+      width: 85px;
+      height: 30px;
+    }
+
+    .section-title {
+      font-size: 13px;
+    }
+
+    .warning-tag {
+      font-size: 11px;
+    }
+
+    .notice-list li {
+      font-size: 9px;
+      line-height: 1.25;
+    }
+
+    .psychedelic-slogan {
+      font-size: 12px;
+    }
+
+    .qr-placeholder {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .ticket {
+      height: 210px;
+    }
+    .main-info {
+      padding: 12px 14px;
+    }
+    .band-name {
+      font-size: 26px;
+    }
+    .stub-info {
+      width: 105px;
+    }
   }
 </style>
 </head>
@@ -384,6 +492,7 @@
         <div class="event-details">
           <div class="detail-item">
             <label>DATE & TIME</label>
+            <!-- 日期和时间已修改 -->
             <span>2025.08.23 SAT 20:30</span>
           </div>
           <div class="detail-item">
@@ -418,10 +527,11 @@
 
         <div>
           <div class="barcode"></div>
+          <!-- 票号年份同步修改 -->
           <div class="ticket-num">#US-2025-9904</div>
         </div>
 
-        <div style="font-size: 9px; color: #ff2a45; letter-spacing: 1px; font-weight: 700;">
+        <div style="font-size: 8px; color: #ff2a45; letter-spacing: 1px; font-weight: 700;">
           ★ NO REFUNDS ★
         </div>
       </div>
@@ -453,7 +563,7 @@
       <div class="stub-divider"></div>
 
       <div class="stub-info">
-        <div style="font-size: 10px; color: #ff2a45; font-weight: bold; letter-spacing: 1px;">
+        <div style="font-size: 9px; color: #ff2a45; font-weight: bold; letter-spacing: 1px;">
           SCAN FOR MAP
         </div>
 
