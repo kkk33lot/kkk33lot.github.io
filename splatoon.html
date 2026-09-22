@@ -20,15 +20,15 @@
     }
 
     #canvas-container {
-  position: relative;
-  width: 600px;
-  height: 600px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  border-radius: 16px;
-  overflow: hidden;
-  /* 替换原来的暗黑色，改用斯普拉遁风的深紫青色渐变 + 炫光底色 */
-  background: radial-gradient(circle at 50% 40%, #2e3856 0%, #161b2b 60%, #0a0d14 100%);
-}
+      position: relative;
+      width: 600px;
+      height: 600px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      overflow: hidden;
+      /* 斯普拉遁风格：深蓝紫色炫光渐变背景 */
+      background: radial-gradient(circle at 50% 40%, #2e3856 0%, #161b2b 60%, #0a0d14 100%);
+    }
 
     canvas {
       width: 100%;
@@ -101,15 +101,23 @@
     renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
 
-    // --- 2. Lights ---
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    // --- 2. Enhanced Lights & Atmosphere ---
+    // 1) 整体环境光：大幅提高亮度（从 0.7 提高到 1.5）
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xfffaed, 1.5);
-    dirLight.position.set(5, 10, 7);
+    // 2) 主平行光（强金色高光）
+    const dirLight = new THREE.DirectionalLight(0xfffaed, 2.0);
+    dirLight.position.set(5, 8, 7);
     scene.add(dirLight);
 
-    const pointLight = new THREE.PointLight(0xffb700, 2, 10);
+    // 3) 补光（斯普拉遁冷蓝色彩对比）
+    const fillLight = new THREE.DirectionalLight(0x4a72ff, 1.2);
+    fillLight.position.set(-5, -5, 5);
+    scene.add(fillLight);
+
+    // 4) 开箱爆发点光源
+    const pointLight = new THREE.PointLight(0xffdf6d, 3, 12);
     pointLight.position.set(0, 0, 0);
     scene.add(pointLight);
 
@@ -255,7 +263,7 @@
       const btnRecord = document.getElementById('btn-record');
       const status = document.getElementById('status');
       
-      const stream = renderer.domElement.captureStream(30); // 30 FPS
+      const stream = renderer.domElement.captureStream(30);
       mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
 
       recordedChunks = [];
@@ -279,7 +287,6 @@
       mediaRecorder.start();
       playAnimation();
 
-      // Stop recording after 3 seconds (animation duration)
       setTimeout(() => {
         mediaRecorder.stop();
       }, 2800);
